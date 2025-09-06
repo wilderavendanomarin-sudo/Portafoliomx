@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wilder Marin - Portafolio de Diseño Gráfico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for uniqueness */
+        body {
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .hero-bg {
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/893da011-9851-4521-b92a-2a8f5927f4fa.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="text white relative">
+    <header class="fixed w-full bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg z-10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WILDER MARIN</h1>
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="#about" class="hover:text-gray-300">Sobre Mí</a></li>
+                <li><a href="#portfolio" class="hover:text-gray-300">Portafolio</a></li>
+                <li><a href="#contact" class="hover:text-gray-300">Contacto</a></li>
+            </ul>
+            <button class="md:hidden" onclick="toggleMenu()">Menu</button>
+        </nav>
+    </header>
+
+    <section class="hero-bg text-white py-32">
+        <div class="container mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-4">Diseñador Gráfico Creativo</h1>
+            <p class="text-xl mb-8">Transformando ideas en visuales impactantes. Especializado en branding, ilustración y diseño digital.</p>
+            <a href="#portfolio" class="bg-purple-600 hover:bg-purple-700 py-3 px-8 rounded-full text-lg font-medium transition">Ver Trabajos</a>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-white text-gray-900">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl font-bold mb-8 text-center">Sobre Mí</h2>
+            <p class="text-lg leading-relaxed mb-6">
+                Soy Wilder Marin, un apasionado diseñador gráfico con más de 1 año de experiencia en el mundo del diseño. Mi enfoque está en crear identidades visuales que no solo sean estéticas, sino que también comuniquen mensajes poderosos y conecten con el público. Trabajo con herramientas como Adobe Suite, Figma y After Effects para dar vida a conceptos innovadores.
+            </p>
+            <p class="text-lg leading-relaxed">
+                Mi filosofía es simple: el buen diseño combina creatividad con estrategia, asegurando que cada proyecto cuente una historia única y memorable.
+            </p>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-900">Mi Portafolio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Proyecto 1 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://jeandesign.s3.us-east-2.amazonaws.com/media/news/post_media/CATALOGO.jpg" alt="Identidad visual no es una simple identidad, sino un simbolo cargado de significado, destinado a ser reconocido y recordado como emblema de una experiencia excepcional.
+" class="w-full h-48 object-cover cursor-pointer" onclick="openLightbox(this.src)" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Zyklus</h3>
+                        <p class="text-gray-700">Identidad visual de marca urbana, utilizando colores compactos y estilos que generan un impacto visual.</p>
+                    </div>
+                </div>
+                <!-- Proyecto 2 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://jeandesign.s3.us-east-2.amazonaws.com/media/news/post_media/MANUAL_DE_MARCA_AMAPOLA-23.jpg" alt="Logotipo minimalista para una marca de maquillaje con una mujer tranquila, ojos cerrado laminadas y tipografía sans-serif elegante en tonos marrones naturales" class="w-full h-48 object-cover cursor-pointer" onclick="openLightbox(this.src)" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Beauty Studio Amapola</h3>
+                        <p class="text-gray-700">Diseño de identidad de marca de maquillaje moderno, enfocando en simplicidad y esencia orgánica.</p>
+                    </div>
+                </div>
+<!-- Proyecto 3 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://jeandesign.s3.us-east-2.amazonaws.com/media/news/post_media/POSTERS.jpg" alt="Identidad visual de marca de ropa como de gorras con un estilo clasico con elgancia, manejando colores calidos." class="w-full h-48 object-cover cursor-pointer" onclick="openLightbox(this.src)" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Urban Mito</h3>
+                        <p class="text-gray-700">Identidad visual con una viosio de crear estilos con detalles precisos..</p>
+                    </div>
+                </div>
+                <!-- Proyecto 4 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://jeandesign.s3.us-east-2.amazonaws.com/media/news/post_media/EMBLEMAS_Mesa_de_trabajo_1.jpg"Identidad de Streaming de Izund, tambien ilustrado, sus paginas y sus redes " class="w-full h-48 object-cover cursor-pointer" onclick="openLightbox(this.src)" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Izund</h3>
+                        <p class="text-gray-700">Layout editorial para Izund, combinando fotografías y gráficos para narrativa visual.</p>
+                    </div>
+                </div>
+                <!-- Proyecto 5 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://jeandesign.s3.us-east-2.amazonaws.com/media/news/post_media/LISFASHION_WEB_JEAN-05.jpg" alt="Paquete de diseño 3D para una empaque de productos para el cabello con patrones florales intricados, empaque blanco con rosado, etiqueta elegante en tonos rosas" class="w-full h-48 object-cover cursor-pointer" onclick="openLightbox(this.src)" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Lisfashion</h3>
+                        <p class="text-gray-700">Diseño de empaque premium para fragancia, utilizando texturas y sombras para sensación de lujo.</p>
+                    </div>
+                </div>
+                <!-- Proyecto 6 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0a023c5c-0fd3-48b2-ada9-3a406a44a535.png" alt="Afiche de campaña de medio ambiente con cabello lasio elegante con tipografía enérgicas llamando a preservar la naturaleza del cabello" class="w-full h-48 object-cover cursor-pointer" onclick="openLightbox(this.src)" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">EcoNature Poster</h3>
+                        <p class="text-gray-700">Afiche promocional para awareness ecológico, diseñado con elementos simbólicos y colores sostenibles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-white text-gray-900">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl font-bold mb-8 text-center">Contáctame</h2>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="text" placeholder="Nombre" class="border border-gray-300 p-3 rounded" />
+                <input type="email" placeholder="Email" class="border border-gray-300 p-3 rounded" />
+                <textarea rows="4" placeholder="Mensaje" class="border border-gray-300 p-3 rounded md:col-span-2"></textarea>
+                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-8 rounded-lg font-medium transition md:col-span-2">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>© 2025 Wilder Marin. Todos los derechos reservados.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="hover:underline">Facebook: Wilder marin</a>
+                <a href="#" class="hover:underline">Instagram: @marinxm_</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox for images -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Trabajo de portafolio ampliado" / src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4202cee6-135f-4321-98f2-cdc3114256f5.png">
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav ul');
+            nav.classList.toggle('hidden');
+        }
+
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+</content>
+</create_file>
+
