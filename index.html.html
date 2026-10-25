@@ -46,10 +46,10 @@
             text-shadow: 0 0 20px rgba(239, 68, 68, 0.7), 0 0 40px rgba(220, 38, 38, 0.4);
         }
         .glass-card {
-            background: rgba(18, 20, 28, 0.75);
+            background: rgba(18, 20, 28, 0.85);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
         .glow-bg {
             background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.15) 0%, rgba(220, 38, 38, 0.1) 40%, transparent 70%);
@@ -57,7 +57,7 @@
         /* Animación para ondas de sonido del ecualizador */
         @keyframes soundWave {
             0%, 100% { height: 4px; }
-            50% { height: 18px; }
+            50% { height: 20px; }
         }
         .animate-wave-1 { animation: soundWave 0.8s infinite ease-in-out; }
         .animate-wave-2 { animation: soundWave 0.5s infinite ease-in-out 0.15s; }
@@ -86,23 +86,30 @@
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
     <div class="fixed top-96 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
-    <!-- Audio de Fondo (Blessd - Hit Urbano) -->
-    <audio id="bgAudio" loop preload="auto" crossorigin="anonymous">
+    <!-- Audio de Fondo con enlace directo estable y garantizado -->
+    <audio id="bgAudio" loop preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=trap-beat-heavy-bass-110002.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
     </audio>
 
-    <!-- Widget Flotante Fijo: Ecualizador Minimalista con activador táctil para saltar restricciones de navegadores -->
-    <div id="audioTrigger" onclick="forcePlayAudio()" class="fixed bottom-6 left-6 z-50 flex items-center cursor-pointer group" title="Haz clic para activar el ritmo">
-        <div class="glass-card px-4 py-2.5 rounded-full flex items-center gap-3 text-red-400 border border-red-500/30 shadow-lg shadow-red-500/20 hover:border-red-400 transition-all">
-            <div class="flex items-end gap-1 h-5 px-1">
-                <span class="w-1 bg-red-400 rounded-full animate-wave-1"></span>
-                <span class="w-1 bg-red-500 rounded-full animate-wave-2"></span>
-                <span class="w-1 bg-rose-400 rounded-full animate-wave-3"></span>
-                <span class="w-1 bg-red-400 rounded-full animate-wave-4"></span>
+    <!-- Widget Flotante Fijo: Ecualizador + Botón de Reproducción Forzada -->
+    <div class="fixed bottom-6 left-6 z-50 flex items-center gap-3">
+        <button id="playMusicBtn" onclick="togglePlay()" class="glass-card px-4 py-3 rounded-full flex items-center gap-3 text-white border border-red-500/40 shadow-xl shadow-red-500/20 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer">
+            <!-- Icono de Play / Pausa -->
+            <div id="playIconContainer" class="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-white text-xs shadow-md shadow-red-600/50">
+                <i id="iconSymbol" class="fa-solid fa-play ml-0.5"></i>
             </div>
-            <span id="audioText" class="text-[11px] font-mono tracking-wider uppercase text-slate-300 group-hover:text-white">Play Beat</span>
-        </div>
+            
+            <!-- Ecualizador Visual Estilizado -->
+            <div id="eqContainer" class="flex items-end gap-1 h-5 px-1 opacity-60">
+                <span class="w-1 bg-red-500 rounded-full"></span>
+                <span class="w-1 bg-rose-400 rounded-full"></span>
+                <span class="w-1 bg-red-500 rounded-full"></span>
+                <span class="w-1 bg-rose-500 rounded-full"></span>
+            </div>
+
+            <span id="playText" class="text-xs font-mono font-bold tracking-wider uppercase pr-1 text-red-400 group-hover:text-red-300">Reproducir Música</span>
+        </button>
     </div>
 
     <!-- Floating WhatsApp Button -->
@@ -686,27 +693,40 @@
         const audio = document.getElementById('bgAudio');
         audio.volume = 1.0;
 
-        // Función para forzar la reproducción al hacer clic en el ecualizador flotante
-        function forcePlayAudio() {
-            audio.play().then(() => {
-                const trigger = document.getElementById('audioTrigger');
-                trigger.style.pointerEvents = 'none';
-                document.getElementById('audioText').style.display = 'none';
-            }).catch(e => {
-                console.log("Reproducción bloqueada por el navegador:", e);
-            });
-        }
+        const playBtn = document.getElementById('playMusicBtn');
+        const iconSymbol = document.getElementById('iconSymbol');
+        const eqContainer = document.getElementById('eqContainer');
+        const playText = document.getElementById('playText');
 
-        // Intento automático al cargar la página
-        window.addEventListener('load', () => {
-            audio.play().then(() => {
-                const trigger = document.getElementById('audioTrigger');
-                trigger.style.pointerEvents = 'none';
-                document.getElementById('audioText').style.display = 'none';
-            }).catch(() => {
-                // Si el navegador bloquea el autoplay, el usuario verá el ecualizador con el texto "Play Beat" para activarlo con un toque.
-            });
-        });
+        let isPlaying = false;
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                iconSymbol.className = "fa-solid fa-play ml-0.5";
+                playText.innerText = "Reproducir Música";
+                eqContainer.classList.add('opacity-60');
+                eqContainer.classList.remove('animate-wave-1', 'animate-wave-2', 'animate-wave-3', 'animate-wave-4');
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    iconSymbol.className = "fa-solid fa-pause";
+                    playText.innerText = "Reproduciendo";
+                    eqContainer.classList.remove('opacity-60');
+                    
+                    // Activamos las clases de animación en las barras del ecualizador
+                    const spans = eqContainer.querySelectorAll('span');
+                    spans[0].className = "w-1 bg-red-500 rounded-full animate-wave-1";
+                    spans[1].className = "w-1 bg-rose-400 rounded-full animate-wave-2";
+                    spans[2].className = "w-1 bg-red-500 rounded-full animate-wave-3";
+                    spans[3].className = "w-1 bg-rose-500 rounded-full animate-wave-4";
+                }).catch(err => {
+                    console.log("Error al reproducir:", err);
+                    alert("Haz clic de nuevo en el botón para iniciar el audio.");
+                });
+            }
+        }
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
