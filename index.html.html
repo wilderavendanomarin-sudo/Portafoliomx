@@ -86,22 +86,22 @@
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
     <div class="fixed top-96 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
-    <!-- Audio de Fondo -->
-    <audio id="bgAudio" loop preload="auto">
-        <source src="Canción.mp3.mp3" type="audio/mpeg">
+    <!-- Audio de Fondo (Blessd - Hit Urbano) -->
+    <audio id="bgAudio" loop preload="auto" crossorigin="anonymous">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=trap-beat-heavy-bass-110002.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
     </audio>
 
-    <!-- Widget Flotante Fijo: Ecualizador Minimalista + Activador táctil de seguridad por si el navegador bloquea el autoplay -->
-    <div id="audioTrigger" onclick="forcePlayAudio()" class="fixed bottom-6 left-6 z-50 flex items-center cursor-pointer group" title="Haz clic para activar la música si no suena">
-        <div class="glass-card px-4 py-2.5 rounded-full flex items-center gap-3 text-blue-400 border border-blue-500/30 shadow-lg shadow-blue-500/20 hover:border-blue-400 transition-all">
+    <!-- Widget Flotante Fijo: Ecualizador Minimalista con activador táctil para saltar restricciones de navegadores -->
+    <div id="audioTrigger" onclick="forcePlayAudio()" class="fixed bottom-6 left-6 z-50 flex items-center cursor-pointer group" title="Haz clic para activar el ritmo">
+        <div class="glass-card px-4 py-2.5 rounded-full flex items-center gap-3 text-red-400 border border-red-500/30 shadow-lg shadow-red-500/20 hover:border-red-400 transition-all">
             <div class="flex items-end gap-1 h-5 px-1">
-                <span class="w-1 bg-blue-400 rounded-full animate-wave-1"></span>
-                <span class="w-1 bg-blue-500 rounded-full animate-wave-2"></span>
-                <span class="w-1 bg-cyan-400 rounded-full animate-wave-3"></span>
-                <span class="w-1 bg-blue-400 rounded-full animate-wave-4"></span>
+                <span class="w-1 bg-red-400 rounded-full animate-wave-1"></span>
+                <span class="w-1 bg-red-500 rounded-full animate-wave-2"></span>
+                <span class="w-1 bg-rose-400 rounded-full animate-wave-3"></span>
+                <span class="w-1 bg-red-400 rounded-full animate-wave-4"></span>
             </div>
-            <span id="audioText" class="text-[11px] font-mono tracking-wider uppercase text-slate-300 group-hover:text-white">Reproducir</span>
+            <span id="audioText" class="text-[11px] font-mono tracking-wider uppercase text-slate-300 group-hover:text-white">Play Beat</span>
         </div>
     </div>
 
@@ -686,26 +686,25 @@
         const audio = document.getElementById('bgAudio');
         audio.volume = 1.0;
 
-        // Función para forzar la reproducción al hacer clic en el ecualizador
+        // Función para forzar la reproducción al hacer clic en el ecualizador flotante
         function forcePlayAudio() {
             audio.play().then(() => {
-                // Ocultamos el texto y dejamos solo el icono de ecualizador animado limpio
                 const trigger = document.getElementById('audioTrigger');
                 trigger.style.pointerEvents = 'none';
                 document.getElementById('audioText').style.display = 'none';
             }).catch(e => {
-                console.log("Error al reproducir audio:", e);
+                console.log("Reproducción bloqueada por el navegador:", e);
             });
         }
 
-        // Intento automático en segundo plano
+        // Intento automático al cargar la página
         window.addEventListener('load', () => {
             audio.play().then(() => {
                 const trigger = document.getElementById('audioTrigger');
                 trigger.style.pointerEvents = 'none';
                 document.getElementById('audioText').style.display = 'none';
             }).catch(() => {
-                // Si el navegador lo bloquea, el usuario verá el botón "Reproducir" en el ecualizador flotante y podrá tocarlo.
+                // Si el navegador bloquea el autoplay, el usuario verá el ecualizador con el texto "Play Beat" para activarlo con un toque.
             });
         });
 
