@@ -54,14 +54,15 @@
         .glow-bg {
             background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.15) 0%, rgba(220, 38, 38, 0.1) 40%, transparent 70%);
         }
-        /* Animación para ondas de sonido estilo Instagram */
+        /* Animación para ondas de sonido del ecualizador */
         @keyframes soundWave {
             0%, 100% { height: 4px; }
-            50% { height: 16px; }
+            50% { height: 18px; }
         }
-        .animate-wave-1 { animation: soundWave 1s infinite ease-in-out; }
-        .animate-wave-2 { animation: soundWave 0.8s infinite ease-in-out 0.2s; }
-        .animate-wave-3 { animation: soundWave 1.2s infinite ease-in-out 0.4s; }
+        .animate-wave-1 { animation: soundWave 0.8s infinite ease-in-out; }
+        .animate-wave-2 { animation: soundWave 0.5s infinite ease-in-out 0.15s; }
+        .animate-wave-3 { animation: soundWave 0.9s infinite ease-in-out 0.3s; }
+        .animate-wave-4 { animation: soundWave 0.6s infinite ease-in-out 0.2s; }
 
         /* Custom scrollbar */
         ::-webkit-scrollbar {
@@ -85,27 +86,20 @@
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
     <div class="fixed top-96 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
-    <!-- Audio de Fondo -->
-    <audio id="bgAudio" autoplay loop preload="auto">
+    <!-- Audio de Fondo (Configurado con bucle y reproducción automática) -->
+    <audio id="bgAudio" loop preload="auto">
         <source src="Can't Tell Me Nothing - MP3.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
     </audio>
 
-    <!-- Widget Flotante Fijo (Esquina inferior izquierda) con barrita de ecualizador -->
+    <!-- Widget Flotante Fijo: Solo el Ecualizador Minimalista -->
     <div class="fixed bottom-6 left-6 z-50 flex items-center">
-        <div class="glass-card px-4 py-2.5 rounded-full flex items-center gap-3 text-blue-400 border border-blue-500/30 shadow-lg shadow-blue-500/20 pointer-events-none">
-            
-            <!-- Barra de audio con animación constante -->
-            <div class="flex items-end gap-1 h-4">
+        <div class="glass-card px-3.5 py-3 rounded-full flex items-center justify-center text-blue-400 border border-blue-500/30 shadow-lg shadow-blue-500/20 pointer-events-none">
+            <div class="flex items-end gap-1 h-5 px-1">
                 <span class="w-1 bg-blue-400 rounded-full animate-wave-1"></span>
-                <span class="w-1 bg-blue-400 rounded-full animate-wave-2"></span>
-                <span class="w-1 bg-blue-400 rounded-full animate-wave-3"></span>
-            </div>
-
-            <!-- Información de la canción -->
-            <div class="text-left">
-                <p class="text-xs font-semibold text-slate-200 tracking-wide">can't tell me nothing (slowed + reverb)</p>
-                <p class="text-[10px] text-slate-400 font-mono">Reproducción continua</p>
+                <span class="w-1 bg-blue-500 rounded-full animate-wave-2"></span>
+                <span class="w-1 bg-cyan-400 rounded-full animate-wave-3"></span>
+                <span class="w-1 bg-blue-400 rounded-full animate-wave-4"></span>
             </div>
         </div>
     </div>
@@ -688,13 +682,24 @@
     <script>
         document.getElementById('currentYear').innerText = new Date().getFullYear();
 
-        // Forzar reproducción automática al primer clic del usuario (necesario por las políticas de los navegadores)
-        const audio = document.getElementById('bgAudio');
-        document.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play().catch(() => {});
-            }
-        }, { once: true });
+        // Forzar reproducción de audio garantizada ante cualquier interacción del usuario en la pantalla
+        window.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('bgAudio');
+            
+            // Intento directo de reproducción inicial
+            audio.play().catch(() => {
+                // Si el navegador bloquea el autoplay puro, se activará en cuanto el usuario toque o haga clic en cualquier parte
+                const forcePlay = () => {
+                    audio.play();
+                    window.removeEventListener('click', forcePlay);
+                    window.removeEventListener('touchstart', forcePlay);
+                    window.removeEventListener('scroll', forcePlay);
+                };
+                window.addEventListener('click', forcePlay);
+                window.addEventListener('touchstart', forcePlay);
+                window.addEventListener('scroll', forcePlay);
+            });
+        });
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
