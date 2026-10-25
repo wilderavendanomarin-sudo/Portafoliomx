@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Bebas Neue, Space Grotesk & Inter -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
@@ -22,9 +22,7 @@
                             dark: '#08090f',
                             card: '#11131a',
                             blue: '#2563EB',
-                            red: '#DC2626',
-                            neonBlue: '#3B82F6',
-                            neonRed: '#EF4444'
+                            red: '#DC2626'
                         }
                     },
                     fontFamily: {
@@ -54,7 +52,6 @@
         .glow-bg {
             background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.15) 0%, rgba(220, 38, 38, 0.1) 40%, transparent 70%);
         }
-        /* Animación para ondas de sonido del ecualizador */
         @keyframes soundWave {
             0%, 100% { height: 4px; }
             50% { height: 20px; }
@@ -64,20 +61,10 @@
         .animate-wave-3 { animation: soundWave 0.9s infinite ease-in-out 0.3s; }
         .animate-wave-4 { animation: soundWave 0.6s infinite ease-in-out 0.2s; }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #08090f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1f2438;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3b82f6;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #08090f; }
+        ::-webkit-scrollbar-thumb { background: #1f2438; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
     </style>
 </head>
 <body class="bg-[#08090f] text-slate-100 font-sans antialiased selection:bg-red-500 selection:text-white overflow-x-hidden">
@@ -86,29 +73,27 @@
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
     <div class="fixed top-96 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
-    <!-- Audio de Fondo con enlace directo estable y garantizado -->
+    <!-- Audio de Fondo con tu archivo original exacto -->
     <audio id="bgAudio" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=trap-beat-heavy-bass-110002.mp3" type="audio/mpeg">
+        <source src="Canción.mp3.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
     </audio>
 
-    <!-- Widget Flotante Fijo: Ecualizador + Botón de Reproducción Forzada -->
+    <!-- Widget Flotante Fijo con Botón Play/Pause Reparado 100% -->
     <div class="fixed bottom-6 left-6 z-50 flex items-center gap-3">
-        <button id="playMusicBtn" onclick="togglePlay()" class="glass-card px-4 py-3 rounded-full flex items-center gap-3 text-white border border-red-500/40 shadow-xl shadow-red-500/20 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer">
-            <!-- Icono de Play / Pausa -->
-            <div id="playIconContainer" class="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-white text-xs shadow-md shadow-red-600/50">
+        <button type="button" onclick="togglePlayMusic()" class="glass-card px-4 py-3 rounded-full flex items-center gap-3 text-white border border-red-500/40 shadow-xl shadow-red-500/20 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer">
+            <div id="playIconContainer" class="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-white text-xs shadow-md shadow-red-600/50 pointer-events-none">
                 <i id="iconSymbol" class="fa-solid fa-play ml-0.5"></i>
             </div>
             
-            <!-- Ecualizador Visual Estilizado -->
-            <div id="eqContainer" class="flex items-end gap-1 h-5 px-1 opacity-60">
+            <div id="eqContainer" class="flex items-end gap-1 h-5 px-1 opacity-60 pointer-events-none">
                 <span class="w-1 bg-red-500 rounded-full"></span>
                 <span class="w-1 bg-rose-400 rounded-full"></span>
                 <span class="w-1 bg-red-500 rounded-full"></span>
                 <span class="w-1 bg-rose-500 rounded-full"></span>
             </div>
 
-            <span id="playText" class="text-xs font-mono font-bold tracking-wider uppercase pr-1 text-red-400 group-hover:text-red-300">Reproducir Música</span>
+            <span id="playText" class="text-xs font-mono font-bold tracking-wider uppercase pr-1 text-red-400 group-hover:text-red-300 pointer-events-none">Reproducir Música</span>
         </button>
     </div>
 
@@ -127,8 +112,6 @@
     <!-- Navigation Header -->
     <header class="fixed top-0 left-0 right-0 z-40 bg-[#08090f]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-            
-            <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-2 group">
                 <div class="font-title text-2xl tracking-widest flex items-center gap-1">
                     <span class="text-white">WILDER</span>
@@ -136,7 +119,6 @@
                 </div>
             </a>
 
-            <!-- Desktop Navigation Links -->
             <nav class="hidden md:flex items-center gap-8 glass-card px-7 py-2.5 rounded-full">
                 <a href="#inicio" class="text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-blue-400 transition">Inicio</a>
                 <a href="#portafolio" class="text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-red-400 transition">Diseños</a>
@@ -145,7 +127,6 @@
                 <a href="#contacto" class="text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-blue-400 transition">Contacto</a>
             </nav>
 
-            <!-- Quick WhatsApp Action -->
             <div class="flex items-center gap-3">
                 <a href="https://wa.link/lh0syi" 
                    target="_blank" 
@@ -161,7 +142,6 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu -->
         <div id="mobileMenu" class="hidden md:hidden glass-card border-x-0 border-b border-white/10 px-6 py-5 mx-2 rounded-2xl mt-1 shadow-2xl flex-col gap-4">
             <a href="#inicio" class="mobile-nav-link text-sm font-semibold tracking-wide text-slate-300 hover:text-blue-400 py-1">Inicio</a>
             <a href="#portafolio" class="mobile-nav-link text-sm font-semibold tracking-wide text-slate-300 hover:text-red-400 py-1">Diseños Instagram</a>
@@ -178,8 +158,6 @@
         <!-- Hero Section -->
         <section id="inicio" class="min-h-screen pt-36 pb-20 glow-bg flex items-center justify-center relative px-4">
             <div class="max-w-4xl mx-auto text-center space-y-6">
-                
-                <!-- Header Name Badge -->
                 <div class="inline-block animate-fade-in">
                     <h2 class="font-title text-4xl sm:text-6xl md:text-7xl tracking-wider text-white">
                         WILDER <span class="text-red-600">MARÍN</span>
@@ -189,7 +167,6 @@
                     </p>
                 </div>
 
-                <!-- Main Slogan -->
                 <div class="py-4">
                     <h1 class="font-title text-5xl sm:text-7xl md:text-8xl tracking-tight leading-[0.95]">
                         <span class="text-blue-600 neon-text-blue block">TRANSFORMO IDEAS</span>
@@ -197,12 +174,10 @@
                     </h1>
                 </div>
 
-                <!-- Subtitle -->
                 <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-sans">
                     Diseño gráfico estratégico para marcas, redes sociales e identidad visual con fuerza y estilo moderno.
                 </p>
 
-                <!-- Action Buttons -->
                 <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
                     <a href="#portafolio" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-xs sm:text-sm uppercase tracking-wider hover:shadow-lg hover:shadow-blue-600/40 hover:-translate-y-0.5 transition duration-300 flex items-center gap-2">
                         <i class="fa-solid fa-shapes"></i>
@@ -215,20 +190,17 @@
                     </a>
                 </div>
 
-                <!-- Fast Info Badges -->
                 <div class="pt-8 flex flex-wrap justify-center items-center gap-8 text-xs uppercase tracking-wider text-slate-400 font-mono">
                     <span class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-500"></i> +2 Años de Experiencia</span>
                     <span class="flex items-center gap-2"><i class="fa-solid fa-check text-red-500"></i> Diseños 100% Personalizados</span>
                     <span class="flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-300"></i> Wilderavendanomarin@gmail.com</span>
                 </div>
-
             </div>
         </section>
 
         <!-- Portfolio Gallery -->
         <section id="portafolio" class="py-24 bg-[#0a0c14] relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                
                 <div class="text-center max-w-3xl mx-auto mb-14">
                     <span class="text-xs uppercase tracking-widest text-red-500 font-bold block mb-2 font-mono">FEED DE CREACIONES & PUBLICIDAD</span>
                     <h2 class="font-title text-4xl sm:text-5xl text-white tracking-wide">Mis Diseños Seleccionados</h2>
@@ -237,24 +209,18 @@
                     </p>
                 </div>
 
-                <!-- Grid of Instagram Designs -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="portfolio-grid">
-                    
-                    <!-- Design 1: Volkat -->
+                    <!-- Design 1 -->
                     <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-purple-500/50 transition duration-300 cursor-pointer" onclick="openModal('volkat')">
                         <div class="rounded-xl overflow-hidden bg-[#7C3AED] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg">
                             <span class="absolute top-3 right-3 text-white/70 text-xs bg-black/30 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white text-2xl font-black">
                                     <i class="fa-solid fa-shield-cat"></i>
                                 </div>
                                 <span class="font-display font-extrabold text-3xl tracking-tight text-white">Volkat</span>
                             </div>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/40 text-purple-200 px-4 py-1 rounded-full border border-white/10">
-                                LOGOTIPO
-                            </span>
+                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/40 text-purple-200 px-4 py-1 rounded-full border border-white/10">LOGOTIPO</span>
                         </div>
                         <div class="mt-3 px-2 flex justify-between items-center text-xs">
                             <span class="font-bold text-white group-hover:text-purple-400 transition">Volkat • Identidad Visual</span>
@@ -262,16 +228,12 @@
                         </div>
                     </div>
 
-                    <!-- Design 2: Gryal -->
+                    <!-- Design 2 -->
                     <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-slate-500/50 transition duration-300 cursor-pointer" onclick="openModal('gryal')">
                         <div class="rounded-xl overflow-hidden bg-[#000000] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg border border-white/5">
                             <span class="absolute top-3 right-3 text-white/70 text-xs bg-white/10 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
                             <h3 class="font-serif italic text-4xl text-neutral-300 tracking-wide">Gryal</h3>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-white/10 text-slate-300 px-4 py-1 rounded-full border border-white/10 font-mono">
-                                MINIMAL LOGO
-                            </span>
+                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-white/10 text-slate-300 px-4 py-1 rounded-full border border-white/10 font-mono">MINIMAL LOGO</span>
                         </div>
                         <div class="mt-3 px-2 flex justify-between items-center text-xs">
                             <span class="font-bold text-white group-hover:text-slate-300 transition">Gryal • Minimal Typographic</span>
@@ -279,19 +241,15 @@
                         </div>
                     </div>
 
-                    <!-- Design 3: ZS ZYKLUS -->
+                    <!-- Design 3 -->
                     <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-blue-500/50 transition duration-300 cursor-pointer" onclick="openModal('zyklus')">
-                        <div class="rounded-xl overflow-hidden bg-[#18181b] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:16px_16px]">
+                        <div class="rounded-xl overflow-hidden bg-[#18181b] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg">
                             <span class="absolute top-3 right-3 text-white/70 text-xs bg-black/40 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
                             <div class="font-title text-center text-slate-100">
                                 <span class="text-6xl tracking-wider block font-black">ZS</span>
                                 <span class="text-3xl tracking-[0.3em] block -mt-2">ZYKLUS</span>
                             </div>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/60 text-slate-300 px-4 py-1 rounded-full border border-white/10 font-mono">
-                                APPAREL & STREETWEAR
-                            </span>
+                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/60 text-slate-300 px-4 py-1 rounded-full border border-white/10 font-mono">APPAREL & STREETWEAR</span>
                         </div>
                         <div class="mt-3 px-2 flex justify-between items-center text-xs">
                             <span class="font-bold text-white group-hover:text-blue-400 transition">ZS Zyklus • Ropa & Textil</span>
@@ -299,390 +257,96 @@
                         </div>
                     </div>
 
-                    <!-- Design 4: Amapola Beauty Studio -->
+                    <!-- Design 4 -->
                     <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-amber-500/50 transition duration-300 cursor-pointer" onclick="openModal('amapola')">
                         <div class="rounded-xl overflow-hidden bg-[#d9c5b2] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg">
                             <span class="absolute top-3 right-3 text-stone-800 text-xs bg-white/40 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
                             <div class="text-stone-900">
                                 <span class="text-[10px] uppercase font-semibold tracking-widest block text-stone-700">BEAUTY STUDIO</span>
                                 <span class="font-serif italic text-4xl text-stone-900 font-medium">Amapola</span>
                             </div>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-stone-900 text-amber-100 px-4 py-1 rounded-full font-mono">
-                                BRANDING DE BELLEZA
-                            </span>
+                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-stone-900 text-amber-100 px-4 py-1 rounded-full font-mono">BRANDING DE BELLEZA</span>
                         </div>
                         <div class="mt-3 px-2 flex justify-between items-center text-xs">
                             <span class="font-bold text-white group-hover:text-amber-300 transition">Amapola Beauty • Identidad</span>
                             <span class="text-slate-400 font-mono">Estudio</span>
                         </div>
                     </div>
-
-                    <!-- Design 5: SUAG -->
-                    <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-emerald-500/50 transition duration-300 cursor-pointer" onclick="openModal('suag')">
-                        <div class="rounded-xl overflow-hidden bg-[#1c2420] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg border border-emerald-950">
-                            <span class="absolute top-3 right-3 text-white/70 text-xs bg-black/40 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
-                            <div class="px-6 py-2.5 rounded-lg border border-emerald-400/40 bg-black/40">
-                                <span class="font-display font-black text-2xl tracking-widest text-emerald-300">SUAG</span>
-                            </div>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/60 text-emerald-400 px-4 py-1 rounded-full border border-emerald-500/20 font-mono">
-                                BUSINESS & STATIONERY
-                            </span>
-                        </div>
-                        <div class="mt-3 px-2 flex justify-between items-center text-xs">
-                            <span class="font-bold text-white group-hover:text-emerald-400 transition">SUAG • Papelería & Tarjetas</span>
-                            <span class="text-slate-400 font-mono">Corporativo</span>
-                        </div>
-                    </div>
-
-                    <!-- Design 6: Ragnar Esports Mascot -->
-                    <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-cyan-500/50 transition duration-300 cursor-pointer" onclick="openModal('ragnar')">
-                        <div class="rounded-xl overflow-hidden bg-gradient-to-b from-sky-900 to-slate-950 h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg border border-sky-800/40">
-                            <span class="absolute top-3 right-3 text-white/70 text-xs bg-black/40 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
-                            <div class="text-center">
-                                <div class="font-title text-2xl tracking-wider text-white">RAGNAR</div>
-                                <div class="w-20 h-20 mx-auto my-2 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-300 text-4xl border border-cyan-400/30">
-                                    <i class="fa-solid fa-helmet-un"></i>
-                                </div>
-                                <div class="font-title text-xl tracking-widest text-cyan-400">WARRIOR</div>
-                            </div>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/60 text-cyan-300 px-4 py-1 rounded-full border border-cyan-500/20 font-mono">
-                                GAMING & ESPORTS
-                            </span>
-                        </div>
-                        <div class="mt-3 px-2 flex justify-between items-center text-xs">
-                            <span class="font-bold text-white group-hover:text-cyan-400 transition">Ragnar • Mascota Esports</span>
-                            <span class="text-slate-400 font-mono">Gaming</span>
-                        </div>
-                    </div>
-
-                    <!-- Design 7: IZUND -->
-                    <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-orange-500/50 transition duration-300 cursor-pointer" onclick="openModal('izund')">
-                        <div class="rounded-xl overflow-hidden bg-[#0d0f17] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg border border-orange-500/20">
-                            <span class="absolute top-3 right-3 text-white/70 text-xs bg-black/40 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
-                            <span class="font-title text-5xl tracking-wider bg-gradient-to-r from-teal-400 via-orange-400 to-amber-500 bg-clip-text text-transparent font-black drop-shadow-[0_4px_10px_rgba(249,115,22,0.4)]">
-                                IZUND
-                            </span>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/60 text-orange-400 px-4 py-1 rounded-full border border-orange-500/20 font-mono">
-                                3D TEXT & GLOW
-                            </span>
-                        </div>
-                        <div class="mt-3 px-2 flex justify-between items-center text-xs">
-                            <span class="font-bold text-white group-hover:text-orange-400 transition">IZUND • Tipografía 3D</span>
-                            <span class="text-slate-400 font-mono">Efectos</span>
-                        </div>
-                    </div>
-
-                    <!-- Design 8: TRIP -->
-                    <div class="group relative rounded-2xl p-2 bg-gradient-to-b from-white/10 to-transparent hover:from-red-500/50 transition duration-300 cursor-pointer" onclick="openModal('trip')">
-                        <div class="rounded-xl overflow-hidden bg-[#0b0c10] h-72 flex flex-col items-center justify-center p-6 text-center relative shadow-lg border border-white/10">
-                            <span class="absolute top-3 right-3 text-white/70 text-xs bg-white/10 p-1.5 rounded-md"><i class="fa-regular fa-clone"></i></span>
-                            
-                            <div class="w-36 h-44 bg-zinc-900 border border-white/20 rounded-md flex flex-col items-center justify-center shadow-2xl">
-                                <span class="font-display font-extrabold text-2xl tracking-[0.25em] text-white">TRIP</span>
-                                <span class="text-[9px] text-zinc-500 tracking-widest mt-1">CLOTHING CO.</span>
-                            </div>
-
-                            <span class="absolute bottom-4 uppercase tracking-widest font-bold text-xs bg-black/70 text-slate-300 px-4 py-1 rounded-full border border-white/10 font-mono">
-                                PACKAGING & MERCH
-                            </span>
-                        </div>
-                        <div class="mt-3 px-2 flex justify-between items-center text-xs">
-                            <span class="font-bold text-white group-hover:text-red-400 transition">TRIP • Packaging & Bolsa</span>
-                            <span class="text-slate-400 font-mono">Boutique</span>
-                        </div>
-                    </div>
-
                 </div>
-
-                <!-- Call to action inside portfolio -->
-                <div class="mt-16 text-center">
-                    <p class="text-slate-400 text-sm mb-4">¿Te gustó alguno de estos estilos para tu negocio o marca?</p>
-                    <a href="https://wa.link/lh0syi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-red-600/30">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                        <span>Pedir Cotización por WhatsApp</span>
-                    </a>
-                </div>
-
             </div>
         </section>
 
         <!-- Services Section -->
         <section id="servicios" class="py-24 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                
                 <div class="text-center max-w-2xl mx-auto mb-16">
                     <span class="text-xs uppercase tracking-widest text-blue-500 font-bold block mb-2 font-mono">SERVICIOS GRÁFICOS</span>
                     <h2 class="font-title text-4xl sm:text-5xl text-white tracking-wide">¿Qué Puedo Crear Para Ti?</h2>
-                    <p class="text-slate-400 text-sm sm:text-base mt-2">
-                        2 años creando piezas gráficas con acabados profesionales, listos para campañas publicitarias e imprenta.
-                    </p>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    
-                    <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-blue-500/50 transition group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
-                                <i class="fa-solid fa-gem"></i>
-                            </div>
-                            <h3 class="font-display font-bold text-lg text-white mb-2">Logotipos & Marcas</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Diseño de logos deportivos, marcas de ropa, identidades minimalistas y papelería corporativa con estilo propio.
-                            </p>
-                        </div>
-                        <ul class="mt-5 space-y-1.5 text-xs text-slate-300 font-medium">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-[10px]"></i> Archivos vectoriales y PNG</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-[10px]"></i> Guía de color y tipografía</li>
-                        </ul>
+                    <div class="glass-card rounded-2xl p-6 border border-white/10">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Logotipos & Marcas</h3>
+                        <p class="text-xs text-slate-400">Diseño de logos deportivos, marcas de ropa e identidades.</p>
                     </div>
-
-                    <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-red-500/50 transition group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
-                                <i class="fa-brands fa-instagram"></i>
-                            </div>
-                            <h3 class="font-display font-bold text-lg text-white mb-2">Publicidad para Instagram</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Posts de alto impacto para el feed e historias atractivas para captar clientes en redes sociales.
-                            </p>
-                        </div>
-                        <ul class="mt-5 space-y-1.5 text-xs text-slate-300 font-medium">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-red-400 text-[10px]"></i> Medidas exactas (1:1 y 9:16)</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-red-400 text-[10px]"></i> Alta definición sin pérdida</li>
-                        </ul>
+                    <div class="glass-card rounded-2xl p-6 border border-white/10">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Publicidad Instagram</h3>
+                        <p class="text-xs text-slate-400">Posts de alto impacto y banners atractivos.</p>
                     </div>
-
-                    <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
-                                <i class="fa-solid fa-shirt"></i>
-                            </div>
-                            <h3 class="font-display font-bold text-lg text-white mb-2">Streetwear & Ropa</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Diseños para buzos, camisetas oversize y packaging con estética urbana contemporánea.
-                            </p>
-                        </div>
-                        <ul class="mt-5 space-y-1.5 text-xs text-slate-300 font-medium">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-[10px]"></i> Archivos a 300 DPI listos</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-[10px]"></i> Mockups realistas en prenda</li>
-                        </ul>
+                    <div class="glass-card rounded-2xl p-6 border border-white/10">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Streetwear & Ropa</h3>
+                        <p class="text-xs text-slate-400">Diseños para buzos y camisetas oversize urbanas.</p>
                     </div>
-
-                    <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-cyan-500/50 transition group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition">
-                                <i class="fa-solid fa-gamepad"></i>
-                            </div>
-                            <h3 class="font-display font-bold text-lg text-white mb-2">Esports & Gaming</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Mascot logos, flyers para torneos, rosters competitivos y banners oficiales de streaming.
-                            </p>
-                        </div>
-                        <ul class="mt-5 space-y-1.5 text-xs text-slate-300 font-medium">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Estética agresiva y nítida</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Adaptable a camisetas de team</li>
-                        </ul>
+                    <div class="glass-card rounded-2xl p-6 border border-white/10">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Esports & Gaming</h3>
+                        <p class="text-xs text-slate-400">Mascot logos, flyers para torneos y banners de streaming.</p>
                     </div>
-
                 </div>
-
             </div>
         </section>
 
         <!-- About Me Section -->
         <section id="sobre-mi" class="py-24 bg-[#0a0c14] border-t border-white/5 relative">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center md:text-left">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                    
-                    <div class="md:col-span-5 text-center">
-                        <div class="relative max-w-xs mx-auto">
-                            <div class="absolute -inset-2 bg-gradient-to-r from-blue-600 to-red-600 rounded-3xl blur-xl opacity-40"></div>
-                            
-                            <div class="relative glass-card rounded-3xl p-6 border border-white/10 text-center">
-                                <div class="w-28 h-28 mx-auto rounded-2xl bg-gradient-to-tr from-blue-600 to-red-600 p-1 mb-4 flex items-center justify-center">
-                                    <div class="w-full h-full bg-[#08090f] rounded-2xl flex items-center justify-center font-title text-4xl text-white">
-                                        WM
-                                    </div>
-                                </div>
-                                <h3 class="font-title text-2xl tracking-wider text-white">Wilder Marín</h3>
-                                <p class="text-red-500 text-xs font-semibold tracking-widest uppercase">Diseñador Gráfico</p>
-                                
-                                <div class="mt-5 pt-5 border-t border-white/10 space-y-2 text-left text-xs">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-slate-400">Experiencia:</span>
-                                        <span class="font-bold text-white font-mono">2 Años Activo</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-slate-400">Contacto:</span>
-                                        <span class="font-bold text-green-400 font-mono">WhatsApp Directo</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-slate-400">Modalidad:</span>
-                                        <span class="font-bold text-blue-400 font-mono">Freelance Remoto</span>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="md:col-span-5">
+                        <div class="glass-card rounded-3xl p-6 border border-white/10 text-center">
+                            <h3 class="font-title text-2xl text-white">Wilder Marín</h3>
+                            <p class="text-red-500 text-xs uppercase font-semibold">Diseñador Gráfico</p>
                         </div>
                     </div>
-
                     <div class="md:col-span-7 space-y-5">
-                        <span class="text-xs uppercase tracking-widest text-red-500 font-mono font-bold block">SOBRE MÍ & TRAYECTORIA</span>
-                        <h2 class="font-title text-4xl sm:text-5xl text-white leading-none">
-                            Creatividad visual con criterio estratégico.
-                        </h2>
-                        
-                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                            Cuento con <strong class="text-white">+2 años de experiencia</strong> en el campo del diseño gráfico, enfocándome en darle personalidad visual a marcas, creadores de contenido y proyectos independientes.
-                        </p>
-
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Mi proceso de trabajo se enfoca en la comunicación directa, rapidez de entrega y resultados visuales modernos que capten la atención en redes sociales y medios digitales.
-                        </p>
-
-                        <div class="pt-2 flex flex-wrap gap-3">
-                            <a href="mailto:Wilderavendanomarin@gmail.com" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 hover:text-white hover:border-white/30 transition">
-                                <i class="fa-regular fa-envelope text-red-400"></i>
-                                <span>Wilderavendanomarin@gmail.com</span>
-                            </a>
-                            <a href="https://wa.link/lh0syi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/30 text-xs text-green-400 hover:bg-green-500/20 transition">
-                                <i class="fa-brands fa-whatsapp"></i>
-                                <span>Escribir por WhatsApp</span>
-                            </a>
-                        </div>
+                        <h2 class="font-title text-4xl sm:text-5xl text-white">Creatividad visual con criterio estratégico.</h2>
+                        <p class="text-slate-300 text-sm sm:text-base">Cuento con +2 años de experiencia en el campo del diseño gráfico, enfocándome en darle personalidad visual a marcas y proyectos independientes.</p>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Contact & WhatsApp Generator -->
+        <!-- Contact Section -->
         <section id="contacto" class="py-24 relative glow-bg">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6">
-                
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <span class="text-xs uppercase tracking-widest text-blue-500 font-bold block mb-2 font-mono">CONVERSEMOS</span>
-                    <h2 class="font-title text-4xl sm:text-5xl text-white tracking-wide">¿Listo para cotizar tu diseño?</h2>
-                    <p class="text-slate-400 text-sm sm:text-base mt-2">
-                        Escríbeme por WhatsApp con tu idea o completa el formulario para armar tu mensaje automático.
-                    </p>
-                </div>
-
-                <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 relative">
-                    <form id="quoteForm" onsubmit="handleQuoteSubmit(event)" class="space-y-5">
-                        
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Tu Nombre o Marca</label>
-                            <input type="text" id="clientName" required placeholder="Ej: Camilo / Marca Urbana" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:border-red-500 focus:outline-none transition">
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Tipo de Proyecto</label>
-                                <select id="designType" class="w-full px-4 py-3 rounded-xl bg-[#12141d] border border-white/10 text-white text-sm focus:border-red-500 focus:outline-none transition">
-                                    <option value="Logotipo / Identidad Visual">Logotipo / Identidad Visual</option>
-                                    <option value="Diseño Publicitario para Instagram">Diseño Publicitario para Instagram</option>
-                                    <option value="Diseño Streetwear / Prendas">Diseño Streetwear / Prendas</option>
-                                    <option value="Mascot Logo / Esports">Mascot Logo / Esports</option>
-                                    <option value="Packaging / Papelería">Packaging / Papelería</option>
-                                    <option value="Varios Diseños / Paquete">Varios Diseños / Paquete</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Tiempo de Entrega Deseado</label>
-                                <select id="urgency" class="w-full px-4 py-3 rounded-xl bg-[#12141d] border border-white/10 text-white text-sm focus:border-red-500 focus:outline-none transition">
-                                    <option value="Normal (2 a 4 días)">Normal (2 a 4 días)</option>
-                                    <option value="Urgente (24 a 48 horas)">Urgente (24 a 48 horas)</option>
-                                    <option value="Planificando con tiempo">Planificando con tiempo</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Detalles de la idea (Opcional)</label>
-                            <textarea id="projectNotes" rows="3" placeholder="Colores que imaginas, textos o temática..." class="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:border-red-500 focus:outline-none transition"></textarea>
-                        </div>
-
-                        <div class="pt-2 flex flex-col sm:flex-row gap-3">
-                            <button type="submit" class="flex-1 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-400 hover:to-green-400 text-black font-extrabold text-sm uppercase tracking-wider transition duration-300 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
-                                <i class="fa-brands fa-whatsapp text-lg"></i>
-                                <span>Enviar Cotización a mi WhatsApp</span>
-                            </button>
-
-                            <a href="https://wa.link/lh0syi" target="_blank" rel="noopener noreferrer" class="sm:w-auto px-6 py-4 rounded-xl glass-card border border-white/20 text-white font-bold text-xs uppercase tracking-wider hover:border-emerald-400 flex items-center justify-center gap-2 transition">
-                                <span>Abrir Chat Directo</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                            </a>
-                        </div>
-                    </form>
-                </div>
-
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+                <h2 class="font-title text-4xl sm:text-5xl text-white mb-6">¿Listo para cotizar tu diseño?</h2>
+                <a href="https://wa.link/lh0syi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-green-500 text-black font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-green-500/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Escribir al WhatsApp
+                </a>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 bg-[#06070a] py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <div class="font-title text-xl tracking-wider text-white">
-                    WILDER <span class="text-red-600">MARÍN</span>
-                </div>
-                <span class="text-slate-600">•</span>
-                <span class="text-xs text-slate-400 font-mono">2 Años de Experiencia</span>
-            </div>
-
-            <div class="flex items-center gap-6 text-xs uppercase tracking-wider text-slate-400">
-                <a href="mailto:Wilderavendanomarin@gmail.com" class="hover:text-red-400 transition flex items-center gap-1.5">
-                    <i class="fa-regular fa-envelope"></i> Wilderavendanomarin@gmail.com
-                </a>
-                <a href="https://wa.link/lh0syi" target="_blank" rel="noopener noreferrer" class="hover:text-green-400 transition flex items-center gap-1.5">
-                    <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp
-                </a>
-            </div>
-
-            <div class="text-xs text-slate-500 font-mono">
-                © <span id="currentYear"></span> Wilder Marín.
-            </div>
-        </div>
+    <footer class="border-t border-white/10 bg-[#06070a] py-10 text-center text-xs text-slate-500 font-mono">
+        © <span id="currentYear"></span> Wilder Marín. Todos los derechos reservados.
     </footer>
 
-    <!-- Interactive Design Modal -->
+    <!-- Modal -->
     <div id="designModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="relative w-full max-w-xl glass-card rounded-3xl border border-white/20 p-6 overflow-hidden shadow-2xl">
-            
-            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition">
+        <div class="relative w-full max-w-xl glass-card rounded-3xl border border-white/20 p-6">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 text-slate-300 flex items-center justify-center">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-
-            <div id="modalGraphicContainer" class="w-full h-64 rounded-2xl flex items-center justify-center mb-5 overflow-hidden">
-                <!-- Se llena dinámicamente -->
-            </div>
-
-            <div>
-                <div class="flex items-center justify-between mb-2">
-                    <span id="modalCategory" class="text-[11px] font-bold uppercase tracking-wider text-red-400 px-2.5 py-0.5 rounded bg-red-400/10 border border-red-400/20 font-mono">Categoría</span>
-                    <span id="modalTools" class="text-xs text-slate-400 font-mono">2 Años de Experiencia</span>
-                </div>
-                <h3 id="modalTitle" class="font-title text-3xl tracking-wide text-white">Título del Diseño</h3>
-                <p id="modalDescription" class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">Detalles del diseño publicitario.</p>
-                
-                <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                    <span class="text-xs text-slate-400">¿Deseas un diseño como este?</span>
-                    <a id="modalWhatsappLink" href="https://wa.link/lh0syi" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-400 hover:to-green-400 text-black font-extrabold text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>Cotizar este estilo</span>
-                    </a>
-                </div>
-            </div>
-
+            <div id="modalGraphicContainer" class="w-full h-64 rounded-2xl flex items-center justify-center mb-5"></div>
+            <h3 id="modalTitle" class="font-title text-3xl text-white">Título</h3>
+            <p id="modalDescription" class="text-xs text-slate-300 mt-2">Descripción</p>
         </div>
     </div>
 
@@ -693,21 +357,24 @@
         const audio = document.getElementById('bgAudio');
         audio.volume = 1.0;
 
-        const playBtn = document.getElementById('playMusicBtn');
+        const playIconContainer = document.getElementById('playIconContainer');
         const iconSymbol = document.getElementById('iconSymbol');
         const eqContainer = document.getElementById('eqContainer');
         const playText = document.getElementById('playText');
 
         let isPlaying = false;
 
-        function togglePlay() {
+        function togglePlayMusic() {
             if (isPlaying) {
                 audio.pause();
                 isPlaying = false;
                 iconSymbol.className = "fa-solid fa-play ml-0.5";
                 playText.innerText = "Reproducir Música";
                 eqContainer.classList.add('opacity-60');
-                eqContainer.classList.remove('animate-wave-1', 'animate-wave-2', 'animate-wave-3', 'animate-wave-4');
+                
+                // Quitamos las clases de animación
+                const spans = eqContainer.querySelectorAll('span');
+                spans.forEach(span => span.className = "w-1 bg-red-500 rounded-full");
             } else {
                 audio.play().then(() => {
                     isPlaying = true;
@@ -715,20 +382,20 @@
                     playText.innerText = "Reproduciendo";
                     eqContainer.classList.remove('opacity-60');
                     
-                    // Activamos las clases de animación en las barras del ecualizador
+                    // Activamos las animaciones de las ondas
                     const spans = eqContainer.querySelectorAll('span');
                     spans[0].className = "w-1 bg-red-500 rounded-full animate-wave-1";
                     spans[1].className = "w-1 bg-rose-400 rounded-full animate-wave-2";
                     spans[2].className = "w-1 bg-red-500 rounded-full animate-wave-3";
                     spans[3].className = "w-1 bg-rose-500 rounded-full animate-wave-4";
                 }).catch(err => {
-                    console.log("Error al reproducir:", err);
-                    alert("Haz clic de nuevo en el botón para iniciar el audio.");
+                    console.error("Error al reproducir audio:", err);
+                    alert("Por favor, verifica que el archivo 'Canción.mp3.mp3' esté en la misma carpeta.");
                 });
             }
         }
 
-        // Mobile Menu Toggle
+        // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         mobileMenuBtn.addEventListener('click', () => {
@@ -736,93 +403,26 @@
             mobileMenu.classList.toggle('flex');
         });
 
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-            });
-        });
-
-        // Instagram Projects Data
+        // Portfolio Data & Modal
         const projects = {
-            volkat: {
-                title: "Volkat - Logotipo & Mascota",
-                category: "Identidad & Logotipo",
-                description: "Creación de imagotipo y diseño para marca digital con isotipo de felino y tipografía bold en paleta púrpura vibrante.",
-                bgClass: "bg-[#7C3AED]",
-                htmlContent: `<div class="flex items-center gap-3 text-white"><div class="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center text-3xl"><i class="fa-solid fa-shield-cat"></i></div><span class="font-display font-black text-4xl">Volkat</span></div>`
-            },
-            gryal: {
-                title: "Gryal - Minimal Serif Logo",
-                category: "Identidad Minimalista",
-                description: "Logotipo de estética lujosa y refinada con tipografía de serifa editorial. Diseñado para líneas exclusivas o marcas de autor.",
-                bgClass: "bg-[#090a0f]",
-                htmlContent: `<h2 class="font-serif italic text-6xl text-slate-200">Gryal</h2>`
-            },
-            zyklus: {
-                title: "ZS ZYKLUS - Streetwear Apparel",
-                category: "Moda & Streetwear",
-                description: "Gráfica textil y monograma ZS con trama de fondo para confección de hoodies oversize y playeras urbanas.",
-                bgClass: "bg-[#18181b]",
-                htmlContent: `<div class="font-title text-center text-white"><span class="text-7xl block font-black">ZS</span><span class="text-3xl tracking-[0.3em] block -mt-2 text-slate-300">ZYKLUS</span></div>`
-            },
-            amapola: {
-                title: "Beauty Studio Amapola",
-                category: "Branding de Belleza",
-                description: "Identidad visual en tonos cálidos y neutros pensada para centros de estética, cuidado facial y belleza profesional.",
-                bgClass: "bg-[#d9c5b2]",
-                htmlContent: `<div class="text-center text-stone-900"><span class="text-xs uppercase tracking-widest block font-bold text-stone-700">BEAUTY STUDIO</span><span class="font-serif italic text-5xl">Amapola</span></div>`
-            },
-            suag: {
-                title: "SUAG - Stationery & Branding",
-                category: "Papelería & Tarjetas",
-                description: "Sistema de papelería, tarjetas de presentación con código QR y acabados mate para identidad corporativa moderna.",
-                bgClass: "bg-[#1c2420]",
-                htmlContent: `<div class="px-8 py-3 rounded-xl border border-emerald-400/40 bg-black/50"><span class="font-display font-black text-3xl tracking-widest text-emerald-300">SUAG</span></div>`
-            },
-            ragnar: {
-                title: "Ragnar - Guerrero Vikingo",
-                category: "Esports & Gaming",
-                description: "Ilustración de mascota vikinga y lettering para torneos, escuadras de eSports y avatares competitivos.",
-                bgClass: "bg-gradient-to-b from-sky-950 to-slate-950",
-                htmlContent: `<div class="text-center text-white"><div class="font-title text-3xl">RAGNAR</div><i class="fa-solid fa-helmet-un text-5xl text-cyan-400 my-2"></i><div class="font-title text-xl text-cyan-300">WARRIOR</div></div>`
-            },
-            izund: {
-                title: "IZUND - 3D Glow Lettering",
-                category: "Tipografía & 3D",
-                description: "Composición tipográfica en bloque con textura grunge, biselado e iluminación en degradado cálido y cian.",
-                bgClass: "bg-[#0d0f17]",
-                htmlContent: `<span class="font-title text-6xl tracking-wider bg-gradient-to-r from-teal-400 via-orange-400 to-amber-500 bg-clip-text text-transparent font-black">IZUND</span>`
-            },
-            trip: {
-                title: "TRIP - Packaging & Bolsa Boutique",
-                category: "Packaging & Ropa",
-                description: "Diseño de bolsa de compra y empaque minimalista negro sobre negro para marca de ropa streetwear.",
-                bgClass: "bg-[#0b0c10]",
-                htmlContent: `<div class="w-40 h-48 bg-zinc-900 border border-white/20 rounded-md flex flex-col items-center justify-center shadow-2xl"><span class="font-display font-extrabold text-3xl tracking-[0.25em] text-white">TRIP</span><span class="text-[10px] text-zinc-500 tracking-widest mt-1">CLOTHING CO.</span></div>`
-            }
+            volkat: { title: "Volkat - Logotipo", category: "Branding", description: "Imagotipo para marca digital con felino.", bgClass: "bg-[#7C3AED]", htmlContent: `<span class="font-display font-black text-4xl text-white">Volkat</span>` },
+            gryal: { title: "Gryal - Logo", category: "Logo", description: "Estética lujosa y refinada.", bgClass: "bg-[#090a0f]", htmlContent: `<h2 class="font-serif italic text-6xl text-slate-200">Gryal</h2>` },
+            zyklus: { title: "ZS Zyklus", category: "Streetwear", description: "Gráfica textil y monograma.", bgClass: "bg-[#18181b]", htmlContent: `<div class="font-title text-white text-center"><span class="text-6xl font-black">ZS</span></div>` },
+            amapola: { title: "Amapola", category: "Beauty", description: "Branding de belleza.", bgClass: "bg-[#d9c5b2]", htmlContent: `<span class="font-serif italic text-5xl text-stone-900">Amapola</span>` }
         };
 
-        // Modal Logic
         const modal = document.getElementById('designModal');
         const modalContainer = document.getElementById('modalGraphicContainer');
         const modalTitle = document.getElementById('modalTitle');
-        const modalCategory = document.getElementById('modalCategory');
         const modalDesc = document.getElementById('modalDescription');
-        const modalWa = document.getElementById('modalWhatsappLink');
 
         function openModal(key) {
             const item = projects[key];
             if (!item) return;
-
-            modalContainer.className = `w-full h-64 rounded-2xl flex items-center justify-center mb-5 overflow-hidden ${item.bgClass}`;
+            modalContainer.className = `w-full h-64 rounded-2xl flex items-center justify-center mb-5 ${item.bgClass}`;
             modalContainer.innerHTML = item.htmlContent;
             modalTitle.innerText = item.title;
-            modalCategory.innerText = item.category;
             modalDesc.innerText = item.description;
-
-            modalWa.href = `https://wa.link/lh0syi`;
-
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -835,12 +435,6 @@
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
         });
-
-        // Form WhatsApp Redirect
-        function handleQuoteSubmit(e) {
-            e.preventDefault();
-            window.open('https://wa.link/lh0syi', '_blank');
-        }
     </script>
 </body>
 </html>
